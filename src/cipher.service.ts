@@ -6,17 +6,17 @@ import { CIPHER_OPTIONS } from './interfaces/cipher.const';
 
 @Injectable()
 export class CipherService {
-  constructor(
-    @Inject(CIPHER_OPTIONS) private readonly _cipherOptions: CipherConfig,
-  ) {}
+  protected readonly config: CipherConfig;
+
+  constructor(config: CipherConfig) {
+    this.config = config;
+  }
 
   encrypt(data: string) {
-    console.log('chiper' + JSON.stringify(this._cipherOptions));
-
     try {
       const cipher = crypto.createCipheriv(
-        this._cipherOptions.algorithm,
-        this._cipherOptions.key,
+        this.config.algorithm,
+        this.config.key,
         '',
       );
 
@@ -32,8 +32,8 @@ export class CipherService {
   decrypt(data: string) {
     try {
       const decipher = crypto.createDecipheriv(
-        this._cipherOptions.algorithm,
-        this._cipherOptions.key,
+        this.config.algorithm,
+        this.config.key,
         '',
       );
 

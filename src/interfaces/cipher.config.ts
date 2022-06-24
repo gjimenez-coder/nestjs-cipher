@@ -1,5 +1,6 @@
 import { ModuleMetadata } from '@nestjs/common/interfaces';
 import { Type } from '@nestjs/common';
+import { CipherService } from 'src/cipher.service';
 
 export class CipherConfig {
   constructor(public algorithm: string, public key: string) {}
@@ -7,6 +8,11 @@ export class CipherConfig {
 
 export interface CipherOptionsFactory {
   createCipherOptions(): Promise<CipherConfig> | CipherConfig;
+}
+
+export function createCipherService(options: CipherConfig): CipherService {
+  const client = new CipherService(options);
+  return client;
 }
 
 export interface CipherModuleAsyncOptions

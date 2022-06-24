@@ -2,6 +2,7 @@ import { DynamicModule, Global, Module, Provider, Type } from '@nestjs/common';
 import {
   CipherModuleAsyncOptions,
   CipherOptionsFactory,
+  createCipherService,
 } from './interfaces/cipher.config';
 import { CIPHER_OPTIONS } from './interfaces/cipher.const';
 import { CipherService } from './cipher.service';
@@ -11,22 +12,24 @@ export interface CipherConfig {
   key: string;
 }
 @Global()
-@Module({})
+@Module({
+  providers: [CipherService],
+  exports: [CipherService],
+})
 export class CipherModule {
   /**
    * Registers a configured @nestjsplus/massive Module for import into the current module
    * using dynamic options (factory, etc)
    */
-  public static forRootAsync(
-    cipherOptions: CipherModuleAsyncOptions,
-  ): DynamicModule {
+  public static forRootAsync(options: CipherModuleAsyncOptions): DynamicModule {
+    const provider: Provider = {
+      inject: [CIPHER_OPTIONS],
+      provide: CipherService,
+      useFactory: (options: CipherConfig) => createCipherService(options),
+    };
     return {
       module: CipherModule,
-      providers: [
-        this.createConfigAsyncProviders(cipherOptions),
-        CipherService,
-      ],
-      exports: [CipherService],
+      providers: [this.createConfigAsyncProviders(options), provider],
     };
   }
 
