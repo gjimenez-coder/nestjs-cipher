@@ -25,7 +25,7 @@ export class CipherService {
 
       return encryptedData;
     } catch (e) {
-      throw new CipherException();
+      throw new CipherException(e);
     }
   }
 
@@ -42,7 +42,7 @@ export class CipherService {
 
       return decripted;
     } catch (e) {
-      throw new CipherException();
+      throw new CipherException(e);
     }
   }
 }
