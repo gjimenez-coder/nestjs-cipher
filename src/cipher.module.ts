@@ -50,9 +50,8 @@ export class CipherModule {
           useFactory: async (optionsFactory: CipherOptionsFactory) =>
             await optionsFactory.createCipherOptions(),
           inject: [
-            (options.useExisting || options.useClass) as Type<
-              CipherOptionsFactory
-            >,
+            (options.useExisting ||
+              options.useClass) as Type<CipherOptionsFactory>,
           ],
         };
       }

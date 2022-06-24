@@ -12,7 +12,7 @@
     "emitDecoratorMetadata": true,
     "sourceMap": false,
     "rootDir": "./src",
-    "baseUrl": "./",
+    "baseUrl": "src",
     "noLib": false
   },
 

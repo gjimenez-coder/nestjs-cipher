@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { CipherException } from './exceptions/cipher.exception';
 import { CipherConfig } from './interfaces/cipher.config';
-import { CIPHER_OPTIONS } from './interfaces/cipher.const';
 
 @Injectable()
 export class CipherService {
@@ -25,7 +24,9 @@ export class CipherService {
 
       return encryptedData;
     } catch (e) {
-      throw new CipherException(e);
+      console.log('Cipher exception : ', e);
+
+      throw new CipherException();
     }
   }
 
@@ -42,7 +43,8 @@ export class CipherService {
 
       return decripted;
     } catch (e) {
-      throw new CipherException(e);
+      console.log('Cipher exception : ', e);
+      throw new CipherException();
     }
   }
 }
