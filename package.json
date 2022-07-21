@@ -1,8 +1,8 @@
 {
   "name": "nestjs-cipher",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "libreria de cifrado en node",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "files": [
     "dist/**/*",
     "*.md"
