@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as crypto from 'crypto';
+import Blowfish from 'egoroof-blowfish';
 import { CipherException } from './exceptions/cipher.exception';
 import { CipherConfig } from './interfaces/cipher.config';
 
@@ -13,35 +13,29 @@ export class CipherService {
 
   encrypt(data: string) {
     try {
-      const cipher = crypto.createCipheriv(
-        this.config.algorithm,
+      const bf = new Blowfish(
         this.config.key,
-        '',
+        Blowfish.MODE.ECB,
+        Blowfish.PADDING.NULL,
       );
-
-      const encryptedData =
-        cipher.update(data, 'utf8', 'base64') + cipher.final('base64');
-
-      return encryptedData;
+      const encrypted = Buffer.from(bf.encode(data)).toString('base64');
+      return encrypted;
     } catch (e) {
       console.log('Cipher exception : ', e);
-
       throw new CipherException();
     }
   }
 
   decrypt(data: string) {
     try {
-      const decipher = crypto.createDecipheriv(
-        this.config.algorithm,
+      const bf = new Blowfish(
         this.config.key,
-        '',
+        Blowfish.MODE.ECB,
+        Blowfish.PADDING.NULL,
       );
-
-      const decripted =
-        decipher.update(data, 'base64', 'utf8') + decipher.final('utf8');
-
-      return decripted;
+      const binarytring = Buffer.from(data, 'base64');
+      const decoded = bf.decode(binarytring, Blowfish.TYPE.STRING);
+      return decoded;
     } catch (e) {
       console.log('Cipher exception : ', e);
       throw new CipherException();

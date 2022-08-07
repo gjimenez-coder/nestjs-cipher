@@ -8,7 +8,6 @@ import { CIPHER_OPTIONS } from './interfaces/cipher.const';
 import { CipherService } from './cipher.service';
 
 export interface CipherConfig {
-  algorithm: string;
   key: string;
 }
 @Global()

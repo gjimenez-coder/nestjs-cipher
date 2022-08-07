@@ -3,7 +3,7 @@ import { Type } from '@nestjs/common';
 import { CipherService } from '../cipher.service';
 
 export class CipherConfig {
-  constructor(public algorithm: string, public key: string) {}
+  constructor(public key: string) {}
 }
 
 export interface CipherOptionsFactory {

@@ -1,7 +1,7 @@
 {
   "name": "nestjs-cipher",
-  "version": "1.0.2",
-  "description": "libreria de cifrado en node",
+  "version": "1.0.3",
+  "description": "libreria de cifrado blowfish en nestjs",
   "main": "dist/index.js",
   "files": [
     "dist/**/*",
@@ -36,7 +36,10 @@
   "peerDependencies": {
     "@nestjs/common": "^8.4.6"
   },
-  "dependencies": {},
+  "dependencies": {
+    "egoroof-blowfish": "^2.2.2",
+    "rxjs": "^7.2.0"
+  },
   "devDependencies": {
     "@nestjs/common": "^8.4.6",
     "@nestjs/core": "^8.4.6",
@@ -72,7 +75,10 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "roots": [
+      "src",
+      "test"
+    ],
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
